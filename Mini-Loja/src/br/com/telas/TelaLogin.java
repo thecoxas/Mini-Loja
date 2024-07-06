@@ -3,27 +3,50 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package br.com.telas;
+
 import br.com.conexao.BancoDadosConexao;
 import java.sql.*;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author Welton
  */
 public class TelaLogin extends javax.swing.JFrame {
-Connection conn = null;
-PreparedStatement pst = null;
-ResultSet rs = null;
+
+    Connection conn = null;
+    PreparedStatement pst = null;
+    ResultSet rs = null;
+
+    public void logar() {
+        String sql = "select * from funcionarios where login = ? and senha = ?";
+        try {
+            pst =conn.prepareStatement(sql);
+            pst.setString(1,txtLogin.getText());
+            String captura = new String(txtSenha.getPassword());
+            pst.setString(2,captura);
+            rs = pst.executeQuery();
+            if (rs.next()) {
+                TelaPrincipal principal = new TelaPrincipal();
+                principal.setVisible(true);
+            } else {
+                JOptionPane.showMessageDialog(null,"Login e/ou senha incorretos");
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }
+
     /**
      * Creates new form TelaLogin
      */
     public TelaLogin() {
         initComponents();
         conn = BancoDadosConexao.getConnection();
-        System.out.println(conn);
-        if(conn != null){
+        //System.out.println(conn);
+        if (conn != null) {
             lblStatus.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/imagens/dbOk.png")));
-        }else{
+        } else {
             lblStatus.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/imagens/dbError.png")));
         }
     }
@@ -127,6 +150,7 @@ ResultSet rs = null;
 
     private void btnEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEntrarActionPerformed
         // TODO add your handling code here:
+        logar();
     }//GEN-LAST:event_btnEntrarActionPerformed
 
     /**
