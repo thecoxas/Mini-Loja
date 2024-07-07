@@ -21,16 +21,32 @@ public class TelaLogin extends javax.swing.JFrame {
     public void logar() {
         String sql = "select * from funcionarios where login = ? and senha = ?";
         try {
-            pst =conn.prepareStatement(sql);
-            pst.setString(1,txtLogin.getText());
+            pst = conn.prepareStatement(sql);
+            pst.setString(1, txtLogin.getText());
             String captura = new String(txtSenha.getPassword());
-            pst.setString(2,captura);
+            pst.setString(2, captura);
             rs = pst.executeQuery();
             if (rs.next()) {
-                TelaPrincipal principal = new TelaPrincipal();
-                principal.setVisible(true);
+                String nome = rs.getString(2);
+                String cargo = rs.getString(3);
+                if (cargo.equals("Gerente")) {
+                    TelaPrincipal principal = new TelaPrincipal();
+                    principal.setVisible(true);
+                    TelaPrincipal.menFinanceiro.setEnabled(true);
+                    TelaPrincipal.lblNome.setText(nome);
+                    TelaPrincipal.lblCargo.setText(cargo);
+                    this.dispose();
+                    conn.close();
+                } else {
+                    TelaPrincipal principal = new TelaPrincipal();
+                    principal.setVisible(true);
+                    TelaPrincipal.lblNome.setText(nome);
+                    TelaPrincipal.lblCargo.setText(cargo);
+                    this.dispose();
+                    conn.close();
+                }
             } else {
-                JOptionPane.showMessageDialog(null,"Login e/ou senha incorretos");
+                JOptionPane.showMessageDialog(null, "Login e/ou senha incorretos");
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
