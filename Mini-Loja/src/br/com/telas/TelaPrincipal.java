@@ -43,12 +43,12 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         lblNome = new javax.swing.JLabel();
         lblCargo = new javax.swing.JLabel();
-        jDesktopPane1 = new javax.swing.JDesktopPane();
+        desktop = new javax.swing.JDesktopPane();
         jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
-        jMenu3 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
+        menFuncionarios = new javax.swing.JMenu();
+        menFuncionario = new javax.swing.JMenu();
+        menCadFuncionario = new javax.swing.JMenuItem();
+        menConsFuncionario = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
         jMenuItem3 = new javax.swing.JMenuItem();
         jMenuItem4 = new javax.swing.JMenuItem();
@@ -57,9 +57,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jMenuItem6 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         menFinanceiro = new javax.swing.JMenu();
-        jMenu7 = new javax.swing.JMenu();
         jMenu6 = new javax.swing.JMenu();
         menSair = new javax.swing.JMenuItem();
+        menSobre = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Loja Luxury - Tela Principal");
@@ -156,28 +156,36 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        javax.swing.GroupLayout jDesktopPane1Layout = new javax.swing.GroupLayout(jDesktopPane1);
-        jDesktopPane1.setLayout(jDesktopPane1Layout);
-        jDesktopPane1Layout.setHorizontalGroup(
-            jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout desktopLayout = new javax.swing.GroupLayout(desktop);
+        desktop.setLayout(desktopLayout);
+        desktopLayout.setHorizontalGroup(
+            desktopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 897, Short.MAX_VALUE)
         );
-        jDesktopPane1Layout.setVerticalGroup(
-            jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        desktopLayout.setVerticalGroup(
+            desktopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 540, Short.MAX_VALUE)
         );
 
-        jMenu1.setText("Cadastro");
+        menFuncionarios.setText("Cadastro");
 
-        jMenu3.setText("Funcionarios");
+        menFuncionario.setText("Funcionarios");
+        menFuncionario.setEnabled(false);
 
-        jMenuItem1.setText("Cadastrar");
-        jMenu3.add(jMenuItem1);
+        menCadFuncionario.setText("Cadastrar");
+        menCadFuncionario.setEnabled(false);
+        menCadFuncionario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menCadFuncionarioActionPerformed(evt);
+            }
+        });
+        menFuncionario.add(menCadFuncionario);
 
-        jMenuItem2.setText("Consultar");
-        jMenu3.add(jMenuItem2);
+        menConsFuncionario.setText("Consultar");
+        menConsFuncionario.setEnabled(false);
+        menFuncionario.add(menConsFuncionario);
 
-        jMenu1.add(jMenu3);
+        menFuncionarios.add(menFuncionario);
 
         jMenu4.setText("Clientes");
 
@@ -187,7 +195,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jMenuItem4.setText("Consultar");
         jMenu4.add(jMenuItem4);
 
-        jMenu1.add(jMenu4);
+        menFuncionarios.add(jMenu4);
 
         jMenu5.setText("Produtos");
 
@@ -197,9 +205,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jMenuItem6.setText("Consultar");
         jMenu5.add(jMenuItem6);
 
-        jMenu1.add(jMenu5);
+        menFuncionarios.add(jMenu5);
 
-        jMenuBar1.add(jMenu1);
+        jMenuBar1.add(menFuncionarios);
 
         jMenu2.setText("Vendas");
         jMenuBar1.add(jMenu2);
@@ -207,10 +215,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
         menFinanceiro.setText("Financeiro");
         menFinanceiro.setEnabled(false);
         jMenuBar1.add(menFinanceiro);
-
-        jMenu7.setText("Sobre");
-        jMenu7.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jMenuBar1.add(jMenu7);
 
         jMenu6.setText("Opção");
 
@@ -221,6 +225,14 @@ public class TelaPrincipal extends javax.swing.JFrame {
             }
         });
         jMenu6.add(menSair);
+
+        menSobre.setText("Sobre");
+        menSobre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menSobreActionPerformed(evt);
+            }
+        });
+        jMenu6.add(menSobre);
 
         jMenuBar1.add(jMenu6);
 
@@ -233,7 +245,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jDesktopPane1)
+                .addComponent(desktop)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -246,7 +258,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
                         .addGap(53, 53, 53))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jDesktopPane1)
+                        .addComponent(desktop)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -270,6 +282,19 @@ public class TelaPrincipal extends javax.swing.JFrame {
             System.exit(0);
         }
     }//GEN-LAST:event_menSairActionPerformed
+
+    private void menSobreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menSobreActionPerformed
+        // TODO add your handling code here:
+        TelaSobre sobre = new TelaSobre();
+        sobre.setVisible(true);
+    }//GEN-LAST:event_menSobreActionPerformed
+
+    private void menCadFuncionarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menCadFuncionarioActionPerformed
+        // TODO add your handling code here:
+        TelaCadastroFuncionarios cadastro = new TelaCadastroFuncionarios();
+        desktop.add(cadastro);
+        cadastro.setVisible(true);
+    }//GEN-LAST:event_menCadFuncionarioActionPerformed
 
     /**
      * @param args the command line arguments
@@ -307,21 +332,16 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JDesktopPane jDesktopPane1;
+    private javax.swing.JDesktopPane desktop;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenu jMenu5;
     private javax.swing.JMenu jMenu6;
-    private javax.swing.JMenu jMenu7;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
@@ -334,7 +354,12 @@ public class TelaPrincipal extends javax.swing.JFrame {
     public static javax.swing.JLabel lblCargo;
     private javax.swing.JLabel lblData;
     public static javax.swing.JLabel lblNome;
+    public static javax.swing.JMenuItem menCadFuncionario;
+    public static javax.swing.JMenuItem menConsFuncionario;
     public static javax.swing.JMenu menFinanceiro;
+    public static javax.swing.JMenu menFuncionario;
+    private javax.swing.JMenu menFuncionarios;
     private javax.swing.JMenuItem menSair;
+    private javax.swing.JMenuItem menSobre;
     // End of variables declaration//GEN-END:variables
 }

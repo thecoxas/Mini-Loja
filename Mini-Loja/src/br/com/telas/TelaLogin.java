@@ -33,17 +33,20 @@ public class TelaLogin extends javax.swing.JFrame {
                     TelaPrincipal principal = new TelaPrincipal();
                     principal.setVisible(true);
                     TelaPrincipal.menFinanceiro.setEnabled(true);
+                    TelaPrincipal.menFuncionario.setEnabled(true);
+                    TelaPrincipal.menCadFuncionario.setEnabled(true);
+                    TelaPrincipal.menConsFuncionario.setEnabled(true);
                     TelaPrincipal.lblNome.setText(nome);
                     TelaPrincipal.lblCargo.setText(cargo);
                     this.dispose();
-                    conn.close();
+                    
                 } else {
                     TelaPrincipal principal = new TelaPrincipal();
                     principal.setVisible(true);
                     TelaPrincipal.lblNome.setText(nome);
                     TelaPrincipal.lblCargo.setText(cargo);
                     this.dispose();
-                    conn.close();
+                    
                 }
             } else {
                 JOptionPane.showMessageDialog(null, "Login e/ou senha incorretos");
