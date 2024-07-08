@@ -46,15 +46,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
         desktop = new javax.swing.JDesktopPane();
         jMenuBar1 = new javax.swing.JMenuBar();
         menFuncionarios = new javax.swing.JMenu();
-        menFuncionario = new javax.swing.JMenu();
         menCadFuncionario = new javax.swing.JMenuItem();
-        menConsFuncionario = new javax.swing.JMenuItem();
-        jMenu4 = new javax.swing.JMenu();
-        jMenuItem3 = new javax.swing.JMenuItem();
-        jMenuItem4 = new javax.swing.JMenuItem();
-        jMenu5 = new javax.swing.JMenu();
-        jMenuItem5 = new javax.swing.JMenuItem();
-        jMenuItem6 = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
+        jMenuItem7 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         menFinanceiro = new javax.swing.JMenu();
         jMenu6 = new javax.swing.JMenu();
@@ -169,43 +163,20 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         menFuncionarios.setText("Cadastro");
 
-        menFuncionario.setText("Funcionarios");
-        menFuncionario.setEnabled(false);
-
-        menCadFuncionario.setText("Cadastrar");
+        menCadFuncionario.setText("Funcionarios");
         menCadFuncionario.setEnabled(false);
         menCadFuncionario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menCadFuncionarioActionPerformed(evt);
             }
         });
-        menFuncionario.add(menCadFuncionario);
+        menFuncionarios.add(menCadFuncionario);
 
-        menConsFuncionario.setText("Consultar");
-        menConsFuncionario.setEnabled(false);
-        menFuncionario.add(menConsFuncionario);
+        jMenuItem2.setText("Clientes");
+        menFuncionarios.add(jMenuItem2);
 
-        menFuncionarios.add(menFuncionario);
-
-        jMenu4.setText("Clientes");
-
-        jMenuItem3.setText("Cadastrar");
-        jMenu4.add(jMenuItem3);
-
-        jMenuItem4.setText("Consultar");
-        jMenu4.add(jMenuItem4);
-
-        menFuncionarios.add(jMenu4);
-
-        jMenu5.setText("Produtos");
-
-        jMenuItem5.setText("Cadastrar");
-        jMenu5.add(jMenuItem5);
-
-        jMenuItem6.setText("Consultar");
-        jMenu5.add(jMenuItem6);
-
-        menFuncionarios.add(jMenu5);
+        jMenuItem7.setText("Produtos");
+        menFuncionarios.add(jMenuItem7);
 
         jMenuBar1.add(menFuncionarios);
 
@@ -291,9 +262,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     private void menCadFuncionarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menCadFuncionarioActionPerformed
         // TODO add your handling code here:
-        TelaCadastroFuncionarios cadastro = new TelaCadastroFuncionarios();
-        desktop.add(cadastro);
-        cadastro.setVisible(true);
+        TelaCadastroFuncionarios funcionario = new TelaCadastroFuncionarios();
+        desktop.add(funcionario);
+        funcionario.setVisible(true);
     }//GEN-LAST:event_menCadFuncionarioActionPerformed
 
     /**
@@ -338,14 +309,10 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenu jMenu4;
-    private javax.swing.JMenu jMenu5;
     private javax.swing.JMenu jMenu6;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JMenuItem jMenuItem4;
-    private javax.swing.JMenuItem jMenuItem5;
-    private javax.swing.JMenuItem jMenuItem6;
+    private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JSeparator jSeparator1;
@@ -355,9 +322,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel lblData;
     public static javax.swing.JLabel lblNome;
     public static javax.swing.JMenuItem menCadFuncionario;
-    public static javax.swing.JMenuItem menConsFuncionario;
     public static javax.swing.JMenu menFinanceiro;
-    public static javax.swing.JMenu menFuncionario;
     private javax.swing.JMenu menFuncionarios;
     private javax.swing.JMenuItem menSair;
     private javax.swing.JMenuItem menSobre;
