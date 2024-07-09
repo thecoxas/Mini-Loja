@@ -43,12 +43,7 @@ public class TelaCadastroFuncionarios extends javax.swing.JInternalFrame {
                 int adicionado = pst.executeUpdate();
                 if (adicionado > 0) {
                     JOptionPane.showMessageDialog(null, "Adicionado com sucesso");
-                    txtFunId.setText(null);
-                    txtFunNome.setText(null);
-                    txtFunCargo.setText(null);
-                    txtFunSalario.setText(null);
-                    txtFunLogin.setText(null);
-                    txtFunSenha.setText(null);
+                    limpar_campos();
                 }
             }
         } catch (Exception e) {
@@ -72,13 +67,8 @@ public class TelaCadastroFuncionarios extends javax.swing.JInternalFrame {
                 btnFunAdd.setEnabled(false);
             } else {
                 JOptionPane.showMessageDialog(null, "Funcionário inexistente");
-                txtFunId.setText(null);
-                txtFunNome.setText(null);
-                txtFunCargo.setText(null);
-                txtFunSalario.setText(null);
-                txtFunLogin.setText(null);
-                txtFunSenha.setText(null);
-                btnFunAdd.setEnabled(true);
+                limpar_campos();
+                
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
@@ -102,18 +92,43 @@ public class TelaCadastroFuncionarios extends javax.swing.JInternalFrame {
                 int adicionado = pst.executeUpdate();
                 if (adicionado > 0) {
                     JOptionPane.showMessageDialog(null, "Alterado com sucesso");
-                    txtFunId.setText(null);
-                    txtFunNome.setText(null);
-                    txtFunCargo.setText(null);
-                    txtFunSalario.setText(null);
-                    txtFunLogin.setText(null);
-                    txtFunSenha.setText(null);
-                    btnFunAdd.setEnabled(true);
+                    limpar_campos();
+                    
                 }
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         }
+    }
+
+    private void deletar_funcionario() {
+        int confirma = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja remover o Funcionário", "Atenção", JOptionPane.YES_NO_OPTION);
+        if (confirma == JOptionPane.YES_OPTION) {
+            String sql = "delete from funcionarios where id = ?";
+            try {
+                pst = conn.prepareStatement(sql);
+                pst.setString(1, txtFunId.getText());
+                int removido = pst.executeUpdate();
+                if (removido > 0) {
+                    JOptionPane.showMessageDialog(null, "Removido com sucesso");
+                    limpar_campos();
+                }
+
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, e);
+            }
+
+        }
+    }
+
+    private void limpar_campos() {
+        txtFunId.setText(null);
+        txtFunNome.setText(null);
+        txtFunCargo.setText(null);
+        txtFunSalario.setText(null);
+        txtFunLogin.setText(null);
+        txtFunSenha.setText(null);
+        btnFunAdd.setEnabled(true);
     }
 
     /**
@@ -140,11 +155,12 @@ public class TelaCadastroFuncionarios extends javax.swing.JInternalFrame {
         txtFunId = new javax.swing.JTextField();
         btnPesquisar = new javax.swing.JButton();
         btnFunAlterar = new javax.swing.JButton();
+        btnFunDeletar = new javax.swing.JButton();
 
         setClosable(true);
         setIconifiable(true);
         setMaximizable(true);
-        setTitle("Menu Cadastro de Funcionarios");
+        setTitle("LOJA LUXURY - Cadastro de Funcionários");
         setPreferredSize(new java.awt.Dimension(897, 540));
 
         jLabel1.setFont(new java.awt.Font("Arial", 3, 18)); // NOI18N
@@ -168,6 +184,8 @@ public class TelaCadastroFuncionarios extends javax.swing.JInternalFrame {
         jLabel5.setText("*Senha:");
 
         btnFunAdd.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/imagens/Folder add.png"))); // NOI18N
+        btnFunAdd.setToolTipText("Adicionar");
+        btnFunAdd.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnFunAdd.setPreferredSize(new java.awt.Dimension(64, 64));
         btnFunAdd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -186,6 +204,8 @@ public class TelaCadastroFuncionarios extends javax.swing.JInternalFrame {
         });
 
         btnPesquisar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/imagens/8684048_folder_file_document_search_find_icon.png"))); // NOI18N
+        btnPesquisar.setToolTipText("Pesquisar");
+        btnPesquisar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnPesquisar.setPreferredSize(new java.awt.Dimension(64, 64));
         btnPesquisar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -194,10 +214,21 @@ public class TelaCadastroFuncionarios extends javax.swing.JInternalFrame {
         });
 
         btnFunAlterar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/imagens/retomar.png"))); // NOI18N
+        btnFunAlterar.setToolTipText("Alterar");
+        btnFunAlterar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnFunAlterar.setPreferredSize(new java.awt.Dimension(64, 64));
         btnFunAlterar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnFunAlterarActionPerformed(evt);
+            }
+        });
+
+        btnFunDeletar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/imagens/8684042_folder_file_document_cancel_cross_icon.png"))); // NOI18N
+        btnFunDeletar.setToolTipText("Deletar");
+        btnFunDeletar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnFunDeletar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFunDeletarActionPerformed(evt);
             }
         });
 
@@ -233,16 +264,18 @@ public class TelaCadastroFuncionarios extends javax.swing.JInternalFrame {
                                 .addComponent(txtFunLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 392, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(206, 206, 206)
-                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtFunId, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(83, 83, 83)
+                        .addGap(75, 75, 75)
                         .addComponent(btnFunAdd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(38, 38, 38)
+                        .addGap(46, 46, 46)
                         .addComponent(btnPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(44, 44, 44)
-                        .addComponent(btnFunAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnFunAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(45, 45, 45)
+                        .addComponent(btnFunDeletar, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(377, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -273,10 +306,12 @@ public class TelaCadastroFuncionarios extends javax.swing.JInternalFrame {
                     .addComponent(jLabel5)
                     .addComponent(txtFunSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(74, 74, 74)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnFunAdd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnFunAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(btnFunAdd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnFunAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnFunDeletar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(90, 90, 90))
         );
 
@@ -302,10 +337,16 @@ public class TelaCadastroFuncionarios extends javax.swing.JInternalFrame {
         editar_funcionario();
     }//GEN-LAST:event_btnFunAlterarActionPerformed
 
+    private void btnFunDeletarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFunDeletarActionPerformed
+        // TODO add your handling code here:
+        deletar_funcionario();
+    }//GEN-LAST:event_btnFunDeletarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnFunAdd;
     private javax.swing.JButton btnFunAlterar;
+    private javax.swing.JButton btnFunDeletar;
     private javax.swing.JButton btnPesquisar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
