@@ -43,10 +43,7 @@ public class TelaCadastroClientes extends javax.swing.JInternalFrame {
                 int adicionado = pst.executeUpdate();
                 if (adicionado > 0) {
                     JOptionPane.showMessageDialog(null, "Cliente adicionado com sucesso");
-                    txtCadCliNome.setText(null);
-                    cboCadCliSexo.setSelectedItem(null);
-                    txtCadCliEndereco.setText(null);
-                    txtCadCliFone.setText(null);
+                    limpar_campos();
                 }
             }
         } catch (Exception e) {
@@ -92,11 +89,7 @@ public class TelaCadastroClientes extends javax.swing.JInternalFrame {
                 int alterado = pst.executeUpdate();
                 if (alterado > 0) {
                     JOptionPane.showMessageDialog(null, "Dados do cliente alterados com sucesso");
-                    txtCadCliId.setText(null);
-                    txtCadCliNome.setText(null);
-                    cboCadCliSexo.setSelectedItem(null);
-                    txtCadCliEndereco.setText(null);
-                    txtCadCliFone.setText(null);
+                    limpar_campos();
                     btnCliAdd.setEnabled(true);
                 }
             }
@@ -106,7 +99,7 @@ public class TelaCadastroClientes extends javax.swing.JInternalFrame {
     }
 
     private void deletar_cliente() {
-        int deletado = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja Excluir esse cliente", "Atenção", JOptionPane.YES_NO_OPTION);
+        int deletado = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja Excluir este cliente", "Atenção", JOptionPane.YES_NO_OPTION);
         if (deletado == JOptionPane.YES_OPTION) {
             String sql = "delete from clientes where id = ?";
             try {
@@ -114,18 +107,22 @@ public class TelaCadastroClientes extends javax.swing.JInternalFrame {
                 pst.setString(1, txtCadCliId.getText());
                 int apagado = pst.executeUpdate();
                 if (apagado > 0) {
-                    JOptionPane.showMessageDialog(null, "Excluído com sucesso");
-                    txtCadCliId.setText(null);
-                    txtCadCliNome.setText(null);
-                    cboCadCliSexo.setSelectedItem(null);
-                    txtCadCliEndereco.setText(null);
-                    txtCadCliFone.setText(null);
+                    JOptionPane.showMessageDialog(null, "Cliente excluído com sucesso");
+                    limpar_campos();
                     btnCliAdd.setEnabled(true);
                 }
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, e);
             }
         }
+    }
+
+    private void limpar_campos() {
+        txtCadCliId.setText(null);
+        txtCadCliNome.setText(null);
+        cboCadCliSexo.setSelectedItem(null);
+        txtCadCliEndereco.setText(null);
+        txtCadCliFone.setText(null);
     }
 
     /**
@@ -223,10 +220,7 @@ public class TelaCadastroClientes extends javax.swing.JInternalFrame {
         tblCliente.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         tblCliente.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+
             },
             new String [] {
                 "Id", "Nome", "Sexo", "Endereço", "Telefone"

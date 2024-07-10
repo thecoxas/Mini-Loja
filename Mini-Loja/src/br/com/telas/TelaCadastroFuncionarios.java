@@ -102,7 +102,7 @@ public class TelaCadastroFuncionarios extends javax.swing.JInternalFrame {
     }
 
     private void deletar_funcionario() {
-        int confirma = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja remover o Funcionário", "Atenção", JOptionPane.YES_NO_OPTION);
+        int confirma = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja remover este Funcionário", "Atenção", JOptionPane.YES_NO_OPTION);
         if (confirma == JOptionPane.YES_OPTION) {
             String sql = "delete from funcionarios where id = ?";
             try {
@@ -110,7 +110,7 @@ public class TelaCadastroFuncionarios extends javax.swing.JInternalFrame {
                 pst.setString(1, txtFunId.getText());
                 int removido = pst.executeUpdate();
                 if (removido > 0) {
-                    JOptionPane.showMessageDialog(null, "Removido com sucesso");
+                    JOptionPane.showMessageDialog(null, "Funcionário removido com sucesso");
                     limpar_campos();
                 }
 

@@ -181,6 +181,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
         menFuncionarios.add(jMenuItem2);
 
         jMenuItem7.setText("Produtos");
+        jMenuItem7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem7ActionPerformed(evt);
+            }
+        });
         menFuncionarios.add(jMenuItem7);
 
         jMenuBar1.add(menFuncionarios);
@@ -278,6 +283,13 @@ public class TelaPrincipal extends javax.swing.JFrame {
         desktop.add(clientes);
         clientes.setVisible(true);
     }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
+        // TODO add your handling code here:
+        TelaCadastroProdutos produtos = new TelaCadastroProdutos();
+        desktop.add(produtos);
+        produtos.setVisible(true);
+    }//GEN-LAST:event_jMenuItem7ActionPerformed
 
     /**
      * @param args the command line arguments
