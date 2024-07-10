@@ -3,18 +3,22 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JInternalFrame.java to edit this template
  */
 package br.com.telas;
+
 import java.sql.*;
 import br.com.conexao.BancoDadosConexao;
 import javax.swing.JOptionPane;
 import net.proteanit.sql.DbUtils;
+
 /**
  *
  * @author Welton
  */
 public class TelaCadastroProdutos extends javax.swing.JInternalFrame {
-Connection conn=null;
-PreparedStatement pst = null;
-ResultSet rs = null;
+
+    Connection conn = null;
+    PreparedStatement pst = null;
+    ResultSet rs = null;
+
     /**
      * Creates new form TelaCadastroProdutos
      */
@@ -22,24 +26,34 @@ ResultSet rs = null;
         initComponents();
         conn = BancoDadosConexao.getConnection();
     }
-    private void adicionar_produto(){
+
+    private void adicionar_produto() {
         String sql = "insert into produtos(nome,preco,qtd)values(?,?,?)";
         try {
             pst = conn.prepareStatement(sql);
             pst.setString(1, txtCadProNome.getText());
             pst.setString(2, txtCadProPreco.getText());
             pst.setString(3, spinCadProQtd.getValue().toString());
-            if(txtCadProNome.getText().isEmpty()|| (txtCadProPreco.getText().isEmpty()||(spinCadProQtd.getValue().toString().isEmpty()))){
+            if (txtCadProNome.getText().isEmpty() || (txtCadProPreco.getText().isEmpty() || (spinCadProQtd.getValue().toString().isEmpty()))) {
                 JOptionPane.showMessageDialog(null, "preencha todos os campos");
-            }else{
+            } else {
                 int adicionado = pst.executeUpdate();
-                if(adicionado > 0 ){
+                if (adicionado > 0) {
                     JOptionPane.showMessageDialog(null, "Produto adicionado com sucesso");
                     txtCadProNome.setText(null);
                     txtCadProPreco.setText(null);
                     spinCadProQtd.setValue(0);
                 }
             }
+            
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }
+    
+    private void Pesquisar_produto(){
+        String sql = "Select * from produtos where nome = ?";
+        try {
             
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
