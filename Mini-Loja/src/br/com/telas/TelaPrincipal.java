@@ -50,6 +50,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenuItem7 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
+        menOrdVendas = new javax.swing.JMenuItem();
         menFinanceiro = new javax.swing.JMenu();
         jMenu6 = new javax.swing.JMenu();
         menSair = new javax.swing.JMenuItem();
@@ -191,6 +192,15 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jMenuBar1.add(menFuncionarios);
 
         jMenu2.setText("Vendas");
+
+        menOrdVendas.setText("O_Vendas");
+        menOrdVendas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menOrdVendasActionPerformed(evt);
+            }
+        });
+        jMenu2.add(menOrdVendas);
+
         jMenuBar1.add(jMenu2);
 
         menFinanceiro.setText("Financeiro");
@@ -291,6 +301,13 @@ public class TelaPrincipal extends javax.swing.JFrame {
         produtos.setVisible(true);
     }//GEN-LAST:event_jMenuItem7ActionPerformed
 
+    private void menOrdVendasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menOrdVendasActionPerformed
+        // TODO add your handling code here:
+        TelaVendas vendas = new TelaVendas();
+        desktop.add(vendas);
+        vendas.setVisible(true);
+    }//GEN-LAST:event_menOrdVendasActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -348,6 +365,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     public static javax.swing.JMenuItem menCadFuncionario;
     public static javax.swing.JMenu menFinanceiro;
     private javax.swing.JMenu menFuncionarios;
+    private javax.swing.JMenuItem menOrdVendas;
     private javax.swing.JMenuItem menSair;
     private javax.swing.JMenuItem menSobre;
     // End of variables declaration//GEN-END:variables
