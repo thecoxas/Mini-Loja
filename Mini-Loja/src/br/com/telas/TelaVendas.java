@@ -67,6 +67,7 @@ public class TelaVendas extends javax.swing.JInternalFrame {
     }
 
     private void pesquisar_vendas() {
+        JOptionPane.showInternalConfirmDialog(null,"Pesquisa ordenada por cliente", "Atenção", JOptionPane.OK_CANCEL_OPTION);
         String sql = "SELECT DISTINCT vendas.id, clientes.nome, vendas.data, vendas.total FROM clientes JOIN vendas ON clientes.id = vendas.cliente_id ";
         try {
             pst = conn.prepareStatement(sql);
@@ -76,15 +77,15 @@ public class TelaVendas extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(null, e);
         }
     }
-    
+
     public void setar_campos_venda() {
         int setar = tblVendas.getSelectedRow();
         txtIdVenda.setText(tblVendas.getModel().getValueAt(setar, 0).toString());
         txtTotVenda.setText(tblVendas.getModel().getValueAt(setar, 3).toString());
         btnAddVendas.setEnabled(false);
     }
-    
-    private void alterar_vendas(){
+
+    private void alterar_vendas() {
         String sql = "update vendas set total = ? where id = ? ";
         try {
             pst = conn.prepareStatement(sql);
@@ -92,16 +93,43 @@ public class TelaVendas extends javax.swing.JInternalFrame {
             pst.setString(2, txtIdVenda.getText());
             if (txtTotVenda.getText().isEmpty()) {
                 JOptionPane.showMessageDialog(null, "Preencha o valor total da venda");
-                
+
             } else {
                 int alterado = pst.executeUpdate();
-                if(alterado > 0 ){
+                if (alterado > 0) {
                     JOptionPane.showMessageDialog(null, "Valor alterado com sucesso");
+                    limpar_campos();
                 }
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         }
+    }
+
+    private void deletar_venda() {
+        int confirma = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja excluir esta venda", "Atenção", JOptionPane.YES_NO_OPTION);
+        if (confirma == JOptionPane.YES_OPTION) {
+            String sql = "delete from vendas where id = ? ";
+            try {
+                pst = conn.prepareStatement(sql);
+                pst.setString(1, txtIdVenda.getText());
+                int deletado = pst.executeUpdate();
+                if (deletado > 0) {
+                    JOptionPane.showMessageDialog(null, "Venda excluída com sucesso");
+                    limpar_campos();
+                }
+
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, e);
+            }
+        }
+
+    }
+
+    public void limpar_campos() {
+        txtIdVenda.setText(null);
+        txtTotVenda.setText(null);
+        btnAddVendas.setEnabled(true);
     }
 
     /**
@@ -131,6 +159,7 @@ public class TelaVendas extends javax.swing.JInternalFrame {
         txtIdCliente = new javax.swing.JTextField();
         jScrollPane3 = new javax.swing.JScrollPane();
         tblVendas = new javax.swing.JTable();
+        jButton4 = new javax.swing.JButton();
 
         setClosable(true);
         setIconifiable(true);
@@ -192,8 +221,14 @@ public class TelaVendas extends javax.swing.JInternalFrame {
 
         jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/imagens/8684042_folder_file_document_cancel_cross_icon.png"))); // NOI18N
         jButton3.setPreferredSize(new java.awt.Dimension(64, 64));
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/imagens/8684048_folder_file_document_search_find_icon.png"))); // NOI18N
+        jButton1.setPreferredSize(new java.awt.Dimension(64, 64));
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -312,6 +347,9 @@ public class TelaVendas extends javax.swing.JInternalFrame {
         });
         jScrollPane3.setViewportView(tblVendas);
 
+        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/imagens/impressora.png"))); // NOI18N
+        jButton4.setPreferredSize(new java.awt.Dimension(64, 64));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -332,8 +370,10 @@ public class TelaVendas extends javax.swing.JInternalFrame {
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(46, 46, 46)
                 .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(49, 49, 49)
+                .addGap(47, 47, 47)
                 .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(53, 53, 53)
+                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -347,11 +387,12 @@ public class TelaVendas extends javax.swing.JInternalFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
                 .addGap(27, 27, 27)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE, false)
-                    .addComponent(btnAddVendas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnAddVendas, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(39, Short.MAX_VALUE))
         );
 
@@ -388,12 +429,18 @@ public class TelaVendas extends javax.swing.JInternalFrame {
         setar_campos_venda();
     }//GEN-LAST:event_tblVendasMouseClicked
 
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        deletar_venda();
+    }//GEN-LAST:event_jButton3ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAddVendas;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
